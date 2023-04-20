@@ -1,0 +1,60 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the 'WakeSpeaker' package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 'WakeSpeaker' '0.1'\n"
+"Report-Msgid-Bugs-To: 'nvda-translations@freelists.org'\n"
+"POT-Creation-Date: 2023-04-19 23:21-0600\n"
+"PO-Revision-Date: 2023-04-19 23:22-0600\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.2.2\n"
+
+#. Translators: The label for the NVDA's settings category.
+#. Add-on summary, usually the user visible name of the addon.
+#. Translators: Summary for this add-on to be shown on installation and add-on information.
+#: addon\globalPlugins\wakeSpeaker.py:206 buildVars.py:17
+msgid "Wake Speaker"
+msgstr ""
+
+#: addon\globalPlugins\wakeSpeaker.py:213
+msgid "&Enable Wake Speaker"
+msgstr "&Habilitar Wake Speaker"
+
+#. Translators: the time to keep alive the speaker.
+#: addon\globalPlugins\wakeSpeaker.py:218
+msgid "&Sleep after (seconds)"
+msgstr "Suspender después de  (segundos)"
+
+#. Translators: the noise volume value.
+#: addon\globalPlugins\wakeSpeaker.py:221
+msgid "Noise volume"
+msgstr "Volumen del ruido"
+
+#. Translators: the time to make a small pause since the noise started the first time.
+#: addon\globalPlugins\wakeSpeaker.py:224
+msgid "&Try to pause noise after (seconds)"
+msgstr "Intentar una pausa después de (Segundos)"
+
+#. Translators: the length of the pause (in MS)
+#: addon\globalPlugins\wakeSpeaker.py:226
+msgid "&Pause length (in MS)"
+msgstr "Duración de la pausa (MS)"
+
+#. Add-on description
+#. Translators: Long description to be shown for this add-on on add-on information from add-ons manager
+#: buildVars.py:20
+msgid ""
+"this add-on plays an inaudible white noise to keep alive the speakers. "
+"Useful for bluetooth headphones or similar devices."
+msgstr ""
+"este complemento reproduce un ruido blanco inaudible para mantener activos "
+"los altavoces. Útil para audífonos bluetooth o dispositivos similares."
