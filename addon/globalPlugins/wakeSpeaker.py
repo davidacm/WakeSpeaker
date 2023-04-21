@@ -4,7 +4,7 @@
 import time, threading
 from ctypes import c_short
 from io import BytesIO
-from random import uniform
+from random import randint
 
 import addonHandler, atexit, config, globalPluginHandler, nvwave, speech, tones, wx
 from synthDriverHandler import synthDoneSpeaking
@@ -25,11 +25,10 @@ AF = registerConfig(AppConfig)
 
 def createWhiteNoise(ms, vol=0, stereo=True, sampleRate=44100, bytes=2):
 	vol = vol / 2000
-	MAX_AMPLITUDE = int(2 ** (bytes * 8) / 2) - 1
+	boundaries = int((2 ** (bytes * 8) / 2 -1) * vol)
 	b = BytesIO()
 	for i in range(int(sampleRate *ms/1000)):
-		v = int(uniform(-1, 1) *vol *MAX_AMPLITUDE)
-		v = c_short(v)
+		v = c_short(randint(-boundaries, boundaries))
 		b.write(v)
 		if stereo:
 			b.write(v)
