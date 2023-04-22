@@ -5,12 +5,12 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 'WakeSpeaker' '0.2'\n"
+"Project-Id-Version: 'WakeSpeaker' '0.3'\n"
 "Report-Msgid-Bugs-To: 'nvda-translations@freelists.org'\n"
-"POT-Creation-Date: 2023-04-19 23:21-0600\n"
-"PO-Revision-Date: 2023-04-22 08:28+0300\n"
+"POT-Creation-Date: 2023-04-22 01:00-0600\n"
+"PO-Revision-Date: 2023-04-22 11:33+0300\n"
 "Last-Translator: \n"
-"Language-Team: \n"
+"Language-Team: cagrid@hotmail.com\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -18,34 +18,56 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 3.2.2\n"
 
+#. Translators: script category for add-on gestures
 #. Translators: The label for the NVDA's settings category.
 #. Add-on summary, usually the user visible name of the addon.
 #. Translators: Summary for this add-on to be shown on installation and add-on information.
-#: addon\globalPlugins\wakeSpeaker.py:206 buildVars.py:17
+#: addon\globalPlugins\wakeSpeaker.py:178
+#: addon\globalPlugins\wakeSpeaker.py:217 buildVars.py:17
 msgid "Wake Speaker"
 msgstr "Hoparlörü uyanık tut"
 
-#: addon\globalPlugins\wakeSpeaker.py:213
+#. Translators: message to announce the add-on state (on or off) the %s is the part of the state of the add-on.
+#: addon\globalPlugins\wakeSpeaker.py:210
+msgid "on"
+msgstr "açık"
+
+#: addon\globalPlugins\wakeSpeaker.py:210
+msgid "off"
+msgstr "kapalı"
+
+#. Translators: message to announce the add-on state (on or off) the %s is the part of the state of the add-on.
+#: addon\globalPlugins\wakeSpeaker.py:210
+#, python-format
+msgid "Wake speaker %s"
+msgstr "Hoparlörü uyanık tut: %s"
+
+#. Translators: toggle wake speaker functionality.
+#: addon\globalPlugins\wakeSpeaker.py:212
+msgid "toggles the wake speaker functionality"
+msgstr "hoparlör uyanık tutma işlevini açıp kapat"
+
+#: addon\globalPlugins\wakeSpeaker.py:224
 msgid "&Enable Wake Speaker"
 msgstr "&Hoparlör Uyandırmayı Etkinleştir"
 
 #. Translators: the time to keep alive the speaker.
-#: addon\globalPlugins\wakeSpeaker.py:218
+#: addon\globalPlugins\wakeSpeaker.py:229
 msgid "&Sleep after (seconds)"
 msgstr "&Şu kadar süre sonra ses çalmayı durdur (Saniye olarak)"
 
 #. Translators: the noise volume value.
-#: addon\globalPlugins\wakeSpeaker.py:221
+#: addon\globalPlugins\wakeSpeaker.py:232
 msgid "Noise volume"
 msgstr "Gürültü ses düzeyi"
 
 #. Translators: the time to make a small pause since the noise started the first time.
-#: addon\globalPlugins\wakeSpeaker.py:224
+#: addon\globalPlugins\wakeSpeaker.py:235
 msgid "&Try to pause noise after (seconds)"
 msgstr "&Gürültüyü şu kadar süre sonra duraklatmayı dene (Saniye olarak)"
 
 #. Translators: the length of the pause (in MS)
-#: addon\globalPlugins\wakeSpeaker.py:226
+#: addon\globalPlugins\wakeSpeaker.py:237
 msgid "&Pause length (in MS)"
 msgstr "&Duraklama süresi (Milisaniye olarak)"
 
