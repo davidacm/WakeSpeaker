@@ -17,7 +17,11 @@ If you don't have such a need, you can use the add-on with its basic functionali
 
 ## Usage and settings.
 
-When you install this plugin, it will be active by default. If you want to change some features, go to NVDA Options, Wake Speaker category, and adjust any of the following options:
+When you install this plugin, it will be active by default.
+
+This add-on has a script to toggle the state of the add-on (on or off) without gesture assigned. You can assign gestures in the "Input Gestures" dialog.
+
+If you want to change some features, go to NVDA Options, Wake Speaker category, and adjust any of the following options:
 
 * Enable Wake Speaker: Toggles the functionality of the add-on.
 * Sleep After (seconds): The amount of time before suspending the noise stream used to keep the audio output awake. The time starts from the last time NVDA produced voice or tones. By default 60 seconds.

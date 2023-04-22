@@ -19,7 +19,11 @@ La última versión de este complemento se puede [descargar en este enlace.](htt
 
 ## Uso y configuración.
 
-Cuando instales este complemento, permanecerá activo por defecto. Si deseas modificar algún comportamiento, ve a las opciones de NVDA, categoría Wake Speaker, y ajusta cualquiera de las siguientes opciones:
+Cuando instales este complemento, estará activo por defecto.
+
+Este complemento tiene un script para alternar el estado del complemento (activado o desactivado) que no tiene gesto asignado. Puedes asignar gestos en el diálogo "Gestos de entrada".
+
+Si deseas modificar algún comportamiento, ve a las opciones de NVDA, categoría Wake Speaker, y ajusta cualquiera de las siguientes opciones:
 
 * Habilitar Wake Speaker: alterna la funcionalidad del complemento.
 * Suspender después de  (segundos): la cantidad de tiempo antes de suspender el flujo de ruido utilizado para mantener despierta la salida de audio. El tiempo comienza desde la última vez que NVDA produjo voz o tonos. Por defecto 60 segundos.

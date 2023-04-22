@@ -6,7 +6,7 @@ from ctypes import c_short
 from io import BytesIO
 from random import randint
 
-import addonHandler, atexit, config, globalPluginHandler, nvwave, speech, tones, wx
+import addonHandler, atexit, config, globalPluginHandler, nvwave, speech, tones, ui, wx
 from synthDriverHandler import synthDoneSpeaking
 from gui import guiHelper, nvdaControls, settingsDialogs, SettingsPanel
 from ._configHelper import configSpec, registerConfig
@@ -174,6 +174,9 @@ def unpatchNVDA():
 
 
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
+	# Translators: script category for add-on gestures
+	scriptCategory = _("Wake Speaker")
+
 	def __init__(self):
 		super(globalPluginHandler.GlobalPlugin, self).__init__()
 		self.handleConfigProfileSwitch()
@@ -186,7 +189,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def disableAddon(self):
 		unpatchNVDA()
-		waker.terminate()
+		if waker:
+			waker.terminate()
 
 	def handleConfigProfileSwitch(self):
 		global waker
@@ -198,6 +202,14 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			waker = Waker()
 			waker.start()
 		patchNVDA(waker)
+
+	def script_toggleWakeSpeaker(self, gesture):
+		AF.wakeSpeaker = not AF.wakeSpeaker
+		config.post_configProfileSwitch.notify()
+		# Translators: message to announce the add-on state (on or off) the %s is the part of the state of the add-on.
+		ui.message(_("Wake speaker %s" % (_("on") if AF.wakeSpeaker else _("off"))))
+	# Translators: toggle wake speaker functionality.
+	script_toggleWakeSpeaker.__doc__ = _("toggles the wake speaker functionality")
 
 
 class WakeSpeakerSettings(SettingsPanel):

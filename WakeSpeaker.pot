@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 'WakeSpeaker' '0.1'\n"
 "Report-Msgid-Bugs-To: 'nvda-translations@freelists.org'\n"
-"POT-Creation-Date: 2023-04-19 23:21-0600\n"
+"POT-Creation-Date: 2023-04-22 01:00-0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,34 +17,56 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#. Translators: script category for add-on gestures
 #. Translators: The label for the NVDA's settings category.
 #. Add-on summary, usually the user visible name of the addon.
 #. Translators: Summary for this add-on to be shown on installation and add-on information.
-#: addon\globalPlugins\wakeSpeaker.py:206 buildVars.py:17
+#: addon\globalPlugins\wakeSpeaker.py:178
+#: addon\globalPlugins\wakeSpeaker.py:217 buildVars.py:17
 msgid "Wake Speaker"
 msgstr ""
 
-#: addon\globalPlugins\wakeSpeaker.py:213
+#. Translators: message to announce the add-on state (on or off) the %s is the part of the state of the add-on.
+#: addon\globalPlugins\wakeSpeaker.py:210
+msgid "on"
+msgstr ""
+
+#: addon\globalPlugins\wakeSpeaker.py:210
+msgid "off"
+msgstr ""
+
+#. Translators: message to announce the add-on state (on or off) the %s is the part of the state of the add-on.
+#: addon\globalPlugins\wakeSpeaker.py:210
+#, python-format
+msgid "Wake speaker %s"
+msgstr ""
+
+#. Translators: toggle wake speaker functionality.
+#: addon\globalPlugins\wakeSpeaker.py:212
+msgid "toggles the wake speaker functionality"
+msgstr ""
+
+#: addon\globalPlugins\wakeSpeaker.py:224
 msgid "&Enable Wake Speaker"
 msgstr ""
 
 #. Translators: the time to keep alive the speaker.
-#: addon\globalPlugins\wakeSpeaker.py:218
+#: addon\globalPlugins\wakeSpeaker.py:229
 msgid "&Sleep after (seconds)"
 msgstr ""
 
 #. Translators: the noise volume value.
-#: addon\globalPlugins\wakeSpeaker.py:221
+#: addon\globalPlugins\wakeSpeaker.py:232
 msgid "Noise volume"
 msgstr ""
 
 #. Translators: the time to make a small pause since the noise started the first time.
-#: addon\globalPlugins\wakeSpeaker.py:224
+#: addon\globalPlugins\wakeSpeaker.py:235
 msgid "&Try to pause noise after (seconds)"
 msgstr ""
 
 #. Translators: the length of the pause (in MS)
-#: addon\globalPlugins\wakeSpeaker.py:226
+#: addon\globalPlugins\wakeSpeaker.py:237
 msgid "&Pause length (in MS)"
 msgstr ""
 
