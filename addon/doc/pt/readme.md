@@ -15,7 +15,7 @@ Se você não tem essa necessidade, você pode usar o complemento com sua funcio
 
 ## Download.
 
-A versão mais recente deste complemento pode ser [baixado neste link.](https://davidacm.github.io/getlatest/gh/davidacm/WakeSpeaker)
+A versão mais recente deste complemento pode ser [baixado neste link.](https://davidacm.github.io/getlatest/gh/davidacm/WakeSpeaker/?index=1)
 
 ## Uso e configuração.
 

@@ -14,7 +14,7 @@
 
 ## 下载
 
-最新版本可通过[此链接下载](https://davidacm.github.io/getlatest/gh/davidacm/WakeSpeaker)。
+最新版本可通过[此链接下载](https://davidacm.github.io/getlatest/gh/davidacm/WakeSpeaker/?index=1)。
 
 ## 使用方法和设置。
 

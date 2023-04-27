@@ -13,7 +13,7 @@ Bu fikir, düşük gecikme modunu korumak için ses akışının zaman zaman dur
 Böyle bir ihtiyacınız yoksa, eklentiyi temel işlevselliği ile kullanabilirsiniz. Bu ek özelliğe ihtiyacınız varsa, ihtiyaçlarınıza göre uyarlamak için ayarları kontrol edin.  
 
 ## İndirme:
- [En son sürüm bu bağlantıdan indirilebilir.](https://davidacm.github.io/getlatest/gh/davidacm/WakeSpeaker)
+ [En son sürüm bu bağlantıdan indirilebilir.](https://davidacm.github.io/getlatest/gh/davidacm/WakeSpeaker/?index=1)
 
 ## Kullanım ve ayarlar:
 
