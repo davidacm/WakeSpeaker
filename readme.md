@@ -24,6 +24,7 @@ This add-on has a script to toggle the state of the add-on (on or off) without g
 If you want to change some features, go to NVDA Options, Wake Speaker category, and adjust any of the following options:
 
 * Enable Wake Speaker: Toggles the functionality of the add-on.
+* Listen voice and beep signals: Enabled by default, you can disable this option if you have issues with other add-ons. This may occur because this add-on  patches some functions in the core of NVDA. If you disable this option, the add-on will emit a white noise with the configured volume, in the whole session of NVDA, without pauses. That can affect battery life of your audio device, disable this option just in case you need it. You must restart NVDA for the change to take effect.
 * Sleep After (seconds): The amount of time before suspending the noise stream used to keep the audio output awake. The time starts from the last time NVDA produced voice or tones. By default 60 seconds.
 * Noise volume: the volume of white noise, default is 0. Increase it if 0 level is not enough for your output device.
 * Try to pause noise after (Seconds): this will try to pause audio after n seconds, the add-on will try until there is no other NVDA audio stream during the pause. keep this parameter at 0 if you don't need this feature. If you have an audio stream external to NVDA, such as when listening to music, pausing the stream will have no effect.

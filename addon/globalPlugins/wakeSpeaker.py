@@ -6,16 +6,18 @@ from ctypes import c_short
 from io import BytesIO
 from random import randint
 
-import addonHandler, atexit, config, globalPluginHandler, nvwave, speech, tones, ui, wx
+import addonHandler, config, core, globalPluginHandler, gui, nvwave, speech, tones, ui, wx
 from synthDriverHandler import synthDoneSpeaking
-from gui import guiHelper, nvdaControls, settingsDialogs, SettingsPanel
-from ._configHelper import configSpec, registerConfig
+from gui import nvdaControls
+from ._configHelper import configSpec, registerConfig, boolValidator
+
 addonHandler.initTranslation()
 
 
 @configSpec('wakeSpeaker')
 class AppConfig:
 	wakeSpeaker = "boolean(default=True)"
+	connectSignals = ('boolean(default=True)', True, boolValidator)
 	keepAlive = "integer(default=60, min=0)"
 	noiseVolume = "integer( default=0, min=0, max=100)"
 	smallPauseAfter = "integer(default=0)"
@@ -23,7 +25,7 @@ class AppConfig:
 AF = registerConfig(AppConfig)
 
 
-def createWhiteNoise(ms, vol=0, stereo=True, sampleRate=44100, bytes=2):
+def createWhiteNoise(ms, vol, stereo=True, sampleRate=44100, bytes=2):
 	vol = vol / 2000
 	boundaries = int((2 ** (bytes * 8) / 2 -1) * vol)
 	b = BytesIO()
@@ -36,30 +38,36 @@ def createWhiteNoise(ms, vol=0, stereo=True, sampleRate=44100, bytes=2):
 
 
 class Waker(threading.Thread):
+	"""
+	This thread will emit a white noise during N seconds since the last wake signal was received.
+	The stream is send in chunks, to check conditions before send each chunk.
+	If configured, this thread will do a pause after N seconds since the first wake signal of the curent stream.
+	To do the pause, isAudioActive must be false before starting and after ending the sleep. The thread will try this indefinitely until those conditions are met or the stream ends.
+	To wake up the stream, use the "wake" method.
+	To indicate that external audio sptreams ended, use the "externalAudioStopped" method. This is important to detect if other audio streams are active.
+	"""
 	def __init__(self):
 		super().__init__()
 		self.sampleRate = 44100
+		self.CHUNK_SIZE = 4000
 		self.volume = AF.noiseVolume
 		self.device = None
 		self.samples = None
 		self.player = None
-		# event to start to wake the speaker.
+		# event to start sending audio.
 		self.wakeEvent = threading.Event()
-		# the last time the speaker stopped being asleep
-		self.wakeStart = None
-		# the last time the wake signal was sent.
-		self.currentWakeStart = None
-		# flag to stop the thread.
-		self.stopFlag = False
-		# flag to determine if another audio stream is active.
-		self.isAudioActive = False
-		self.chunkSize = 4000
+		self.wakeStart = 0
+		self.lastWakeTime = 0
+		self.endFlag = False
+		self.isAudioActive = True
+		self.play = False
+		self.connectSignals = False
 
 	def updateNoiseVolume(self):
 		self.setPlayer()
 		if self.samples == None or self.volume != AF.noiseVolume:
 			self.volume = AF.noiseVolume
-			self.samples = createWhiteNoise(1000, self.volume, stereo=True)
+			self.samples = createWhiteNoise(1000, self.volume)
 
 	def setPlayer(self):
 		device = config.conf["speech"]["outputDevice"]
@@ -68,60 +76,69 @@ class Waker(threading.Thread):
 			self.player = nvwave.WavePlayer(2, self.sampleRate, 16, outputDevice=device, wantDucking=False, buffered=True)
 
 	def elapsed(self):
-		return time.time() - self.currentWakeStart if self.currentWakeStart else 0
+		return time.time() - self.lastWakeTime
 
-	def elapsedWake(self):
-		# this method returns the time since the first time the wake was started.
-		# this attribute will be reset when the noise make a pause.
-		return time.time() - self.wakeStart if self.wakeStart else 0
+	def streamElapsed(self):
+		return time.time() - self.wakeStart
 
 	def run(self):
-		# the noise is sent in small chunks, to listen the signals between chunks.
-		self.wakeStart = time.time()
 		while True:
-			if self.stopFlag:
-				break
 			self.wakeEvent.wait()
 			self.wakeEvent.clear()
+			if self.endFlag:
+				break
+			if not self.play:
+				continue
 			self.updateNoiseVolume()
-			self.currentWakeStart = time.time()
+			self.lastWakeTime = time.time()
 			if self.wakeStart == 0:
 				self.wakeStart = time.time()
-			self.samples.seek(0)
 			while not self.wakeEvent.is_set():
-				if self.elapsed() > AF.keepAlive:
-					self.wakeStart = 0
-					break
-				if AF.smallPauseAfter != 0 and self.elapsedWake() > AF.smallPauseAfter and not self.isAudioActive:
-					self.player.stop()
-					time.sleep(AF.pauseSizeMs /1000)
-					# if a signal of other player was detected during the pause, the elapced time won't be reset to try the pause again
-					if not self.isAudioActive:
-						self.wakeStart = time.time()
-				data = self.samples.read(self.chunkSize)
+				data = self.samples.read(self.CHUNK_SIZE)
 				if data == b'':
 					self.samples.seek(0)
 					continue
 				self.player.feed(data)
+				if not self.play:
+					self.player.stop()
+					self.wakeStart = 0
+					break
+				if not self.connectSignals:
+					continue
+				if self.elapsed() > AF.keepAlive:
+					self.player.stop()
+					self.wakeStart = 0
+					break
+				if AF.smallPauseAfter != 0 and self.streamElapsed() > AF.smallPauseAfter and not self.isAudioActive:
+					self.player.stop()
+					time.sleep(AF.pauseSizeMs /1000)
+					if not self.isAudioActive:
+						self.wakeStart = time.time()
 		self.player.close()
 		self.player= None
 
+	def notify(self):
+		if self.play:
+			self.wakeEvent.set()
+
 	def wake(self):
-		# if this method is called during a pause of data sending, this will indicate that the pause failed because new data by another stream was sent.
 		self.isAudioActive = True
-		self.wakeEvent.set()
+		self.notify()
+
+	def togglePlay(self, switch):
+		"""
+		plays or pauses the white noise stream, it's used to toggle the addon.
+		"""
+		self.play = switch
+		self.notify()
 
 	def externalAudioStopped(self):
-		""" this method set the flag to indicates that no audio is being send from another player, like a synthesizer.
-		is not possible to determine if the tone beep function is running, because this function has not a stop or done signal.
-		this method should be called when the synth voice stops.
-		"""
 		self.isAudioActive = False
 
 	def terminate(self):
-		self.stopFlag = True
+		self.endFlag = True
 		self.wakeEvent.set()
-waker = None
+waker = Waker()
 
 
 def extensionBeep(*args, **qwargs):
@@ -145,7 +162,7 @@ def makeFakeFunction(origFunc, signalFunc):
 origBeep = tones.beep
 origSpeak = speech._manager.speak
 origCancel = speech._manager.cancel
-def patchNVDA(waker):
+def patchNVDA(waker: Waker):
 	# patch beep
 	try:
 		from tones import decide_beep as d
@@ -178,52 +195,72 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	scriptCategory = _("Wake Speaker")
 
 	def __init__(self):
-		super(globalPluginHandler.GlobalPlugin, self).__init__()
+		super().__init__()
+		if AF.connectSignals:
+			patchNVDA(waker)
+			waker.connectSignals = True
 		self.handleConfigProfileSwitch()
-		settingsDialogs.NVDASettingsDialog.categoryClasses.append(WakeSpeakerSettings)
+		gui.settingsDialogs.NVDASettingsDialog.categoryClasses.append(WakeSpeakerSettings)
 		config.post_configProfileSwitch.register(self.handleConfigProfileSwitch)
+		waker.start()
 
 	def terminate(self):
-		super(GlobalPlugin, self).terminate()
-		self.disableAddon()
-
-	def disableAddon(self):
-		unpatchNVDA()
-		if waker:
-			waker.terminate()
+		super().terminate()
+		if waker.connectSignals:
+			unpatchNVDA()
+		waker.terminate()
 
 	def handleConfigProfileSwitch(self):
-		global waker
-		if not AF.wakeSpeaker :
-			self.disableAddon()
-			waker = None
-			return
-		if not waker:
-			waker = Waker()
-			waker.start()
-		patchNVDA(waker)
+		waker.togglePlay(AF.wakeSpeaker)
 
 	def script_toggleWakeSpeaker(self, gesture):
 		AF.wakeSpeaker = not AF.wakeSpeaker
-		config.post_configProfileSwitch.notify()
+		self.handleConfigProfileSwitch()
 		# Translators: message to announce the add-on state (on or off) the %s is the part of the state of the add-on.
 		ui.message(_("Wake speaker %s" % (_("on") if AF.wakeSpeaker else _("off"))))
 	# Translators: toggle wake speaker functionality.
 	script_toggleWakeSpeaker.__doc__ = _("toggles the wake speaker functionality")
 
 
-class WakeSpeakerSettings(SettingsPanel):
+def promptUserForRestart():
+	restartMessage = _(
+		# Translators: A message asking the user if they wish to restart NVDA
+		# as the connect signals option requires restart to take effect.
+		"The option Listen voice and beep signals has been changed. "
+		"You must restart NVDA for that change to take effect. "
+		"Would you like to restart now?"
+	)
+	# Translators: Title for message asking if the user wishes to restart NVDA as addons have been added or removed.
+	restartTitle = _("Restart NVDA")
+	result = gui.messageBox(
+		message=restartMessage,
+		caption=restartTitle,
+		style=wx.YES | wx.NO | wx.ICON_WARNING
+	)
+	if wx.YES == result:
+		core.restart()
+
+
+class WakeSpeakerSettings(gui.SettingsPanel):
 	# Translators: The label for the NVDA's settings category.
 	title = _("Wake Speaker")
 
 	def makeSettings(self, settingsSizer):
-		sHelper = guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
+		sHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
 
 		# Translators: toggle the add-on functionality.
 		self.enableAddon = sHelper.addItem(
 			wx.CheckBox(self, label=_("&Enable Wake Speaker"))
 		)
 		self.enableAddon.SetValue(AF.wakeSpeaker)
+		self.enableAddon.Bind(wx.EVT_CHECKBOX, self.onToggleAddon)
+
+		# Translators: toggles the listening of voice and beep signals.
+		self.connectSignals  = sHelper.addItem(
+			wx.CheckBox(self, label=_("&Listen voice and beep signals (disable if there are issues with other add-ons)"))
+		)
+		self.connectSignals .SetValue(AF.connectSignals )
+		self.connectSignals .Bind(wx.EVT_CHECKBOX, self.onToggleConnectSignals )
 
 		# Translators: the time to keep alive the speaker.
 		self.keepAlive = sHelper.addLabeledControl(_("&Sleep after (seconds)"), nvdaControls.SelectOnFocusSpinCtrl, min=1, max=1800, initial=AF.keepAlive)
@@ -235,6 +272,24 @@ class WakeSpeakerSettings(SettingsPanel):
 		self.pauseAfter = sHelper.addLabeledControl(_("&Try to pause noise after (seconds)"), nvdaControls.SelectOnFocusSpinCtrl, min=0, max=1800, initial=AF.smallPauseAfter)
 		# Translators: the length of the pause (in MS)
 		self.pauseSize = sHelper.addLabeledControl(_("&Pause length (in MS)"), nvdaControls.SelectOnFocusSpinCtrl, min=5, max=3000, initial=AF.pauseSizeMs)
+		self.onToggleAddon()
+
+	def toggleControls(self,controls, toggle):
+		for k in controls:
+			if toggle:
+				k.Show()
+			else:
+				k.Hide()
+
+	def onToggleAddon(self, e=None):
+		if self.enableAddon.GetValue():
+			self.toggleControls((self.connectSignals, self.noise), True)
+			self.onToggleConnectSignals()
+		else:
+			self.toggleControls((self.connectSignals, self.noise, self.keepAlive, self.pauseAfter, self.pauseSize), False)
+
+	def onToggleConnectSignals (self, e=None):
+		self.toggleControls((self.keepAlive, self.pauseAfter, self.pauseSize), self.connectSignals.GetValue())
 
 	def onSave(self):
 		AF.wakeSpeaker = self.enableAddon.GetValue()
@@ -242,4 +297,8 @@ class WakeSpeakerSettings(SettingsPanel):
 		AF.noiseVolume = self.noise.GetValue()
 		AF.smallPauseAfter = self.pauseAfter.GetValue()
 		AF.pauseSizeMs = self.pauseSize.GetValue()
+		signals = AF.connectSignals
+		AF.connectSignals = self.connectSignals.GetValue()
 		config.post_configProfileSwitch.notify()
+		if signals != AF.connectSignals:
+			promptUserForRestart()

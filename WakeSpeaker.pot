@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 'WakeSpeaker' '0.1'\n"
 "Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
-"POT-Creation-Date: 2023-04-26 22:16-0600\n"
+"POT-Creation-Date: 2023-04-27 16:52-0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,52 +21,71 @@ msgstr ""
 #. Translators: The label for the NVDA's settings category.
 #. Add-on summary, usually the user visible name of the addon.
 #. Translators: Summary for this add-on to be shown on installation and add-on information.
-#: addon\globalPlugins\wakeSpeaker.py:178
-#: addon\globalPlugins\wakeSpeaker.py:217 buildVars.py:17
+#: addon\globalPlugins\wakeSpeaker.py:195
+#: addon\globalPlugins\wakeSpeaker.py:246 buildVars.py:17
 msgid "Wake Speaker"
 msgstr ""
 
 #. Translators: message to announce the add-on state (on or off) the %s is the part of the state of the add-on.
-#: addon\globalPlugins\wakeSpeaker.py:210
+#: addon\globalPlugins\wakeSpeaker.py:220
 msgid "on"
 msgstr ""
 
-#: addon\globalPlugins\wakeSpeaker.py:210
+#: addon\globalPlugins\wakeSpeaker.py:220
 msgid "off"
 msgstr ""
 
 #. Translators: message to announce the add-on state (on or off) the %s is the part of the state of the add-on.
-#: addon\globalPlugins\wakeSpeaker.py:210
+#: addon\globalPlugins\wakeSpeaker.py:220
 #, python-format
 msgid "Wake speaker %s"
 msgstr ""
 
 #. Translators: toggle wake speaker functionality.
-#: addon\globalPlugins\wakeSpeaker.py:212
+#: addon\globalPlugins\wakeSpeaker.py:222
 msgid "toggles the wake speaker functionality"
 msgstr ""
 
-#: addon\globalPlugins\wakeSpeaker.py:224
+#. Translators: A message asking the user if they wish to restart NVDA
+#. as the connect signals option requires restart to take effect.
+#: addon\globalPlugins\wakeSpeaker.py:229
+msgid ""
+"The option Listen voice and beep signals has been changed. You must restart "
+"NVDA for that change to take effect. Would you like to restart now?"
+msgstr ""
+
+#. Translators: Title for message asking if the user wishes to restart NVDA as addons have been added or removed.
+#: addon\globalPlugins\wakeSpeaker.py:234
+msgid "Restart NVDA"
+msgstr ""
+
+#: addon\globalPlugins\wakeSpeaker.py:253
 msgid "&Enable Wake Speaker"
 msgstr ""
 
+#: addon\globalPlugins\wakeSpeaker.py:260
+msgid ""
+"&Listen voice and beep signals (disable if there are issues with other add-"
+"ons)"
+msgstr ""
+
 #. Translators: the time to keep alive the speaker.
-#: addon\globalPlugins\wakeSpeaker.py:229
+#: addon\globalPlugins\wakeSpeaker.py:266
 msgid "&Sleep after (seconds)"
 msgstr ""
 
 #. Translators: the noise volume value.
-#: addon\globalPlugins\wakeSpeaker.py:232
+#: addon\globalPlugins\wakeSpeaker.py:269
 msgid "Noise volume"
 msgstr ""
 
 #. Translators: the time to make a small pause since the noise started the first time.
-#: addon\globalPlugins\wakeSpeaker.py:235
+#: addon\globalPlugins\wakeSpeaker.py:272
 msgid "&Try to pause noise after (seconds)"
 msgstr ""
 
 #. Translators: the length of the pause (in MS)
-#: addon\globalPlugins\wakeSpeaker.py:237
+#: addon\globalPlugins\wakeSpeaker.py:274
 msgid "&Pause length (in MS)"
 msgstr ""
 
