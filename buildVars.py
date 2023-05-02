@@ -19,7 +19,7 @@ addon_info = {
 	# Translators: Long description to be shown for this add-on on add-on information from add-ons manager
 	"addon_description" : _("""this add-on plays an inaudible white noise to keep alive the speakers. Useful for bluetooth headphones or similar devices."""),
 	# version
-	"addon_version" : "0.1",
+	"addon_version" : "23.5.2",
 	# Author(s)
 	"addon_author" : u"David CM <dhf360@gmail.com>",
 	# URL for the add-on documentation support

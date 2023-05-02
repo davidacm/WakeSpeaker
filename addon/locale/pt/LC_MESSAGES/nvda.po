@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 'WakeSpeaker' '0.1'\n"
 "Report-Msgid-Bugs-To: 'nvda-translations@freelists.org'\n"
-"POT-Creation-Date: 2023-04-19 23:21-0600\n"
-"PO-Revision-Date: 2023-04-21 12:47-0300\n"
+"POT-Creation-Date: 2023-04-22 00:50-0600\n"
+"PO-Revision-Date: 2023-04-27 18:43-0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: pt\n"
@@ -18,34 +18,55 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 3.2.2\n"
 
+#. Translators: script category for add-on gestures
 #. Translators: The label for the NVDA's settings category.
 #. Add-on summary, usually the user visible name of the addon.
 #. Translators: Summary for this add-on to be shown on installation and add-on information.
-#: addon\globalPlugins\wakeSpeaker.py:206 buildVars.py:17
+#: addon\globalPlugins\wakeSpeaker.py:178
+#: addon\globalPlugins\wakeSpeaker.py:216 buildVars.py:17
 msgid "Wake Speaker"
 msgstr ""
 
-#: addon\globalPlugins\wakeSpeaker.py:213
+#: addon\globalPlugins\wakeSpeaker.py:209
+msgid "on"
+msgstr "ativado"
+
+#: addon\globalPlugins\wakeSpeaker.py:209
+msgid "off"
+msgstr "desativado"
+
+#: addon\globalPlugins\wakeSpeaker.py:209
+#, fuzzy, python-format
+#| msgid "&Enable Wake Speaker"
+msgid "Wake speaker %s"
+msgstr "&Habilitar o Wake Speaker"
+
+#. Translators: toggle wake speaker functionality.
+#: addon\globalPlugins\wakeSpeaker.py:211
+msgid "toggles the wake speaker functionality"
+msgstr "Alterna a funcionalidade do wake speaker"
+
+#: addon\globalPlugins\wakeSpeaker.py:223
 msgid "&Enable Wake Speaker"
 msgstr "&Habilitar o Wake Speaker"
 
 #. Translators: the time to keep alive the speaker.
-#: addon\globalPlugins\wakeSpeaker.py:218
+#: addon\globalPlugins\wakeSpeaker.py:228
 msgid "&Sleep after (seconds)"
 msgstr "Suspender após (segundos)"
 
 #. Translators: the noise volume value.
-#: addon\globalPlugins\wakeSpeaker.py:221
+#: addon\globalPlugins\wakeSpeaker.py:231
 msgid "Noise volume"
 msgstr "Volume do ruído"
 
 #. Translators: the time to make a small pause since the noise started the first time.
-#: addon\globalPlugins\wakeSpeaker.py:224
+#: addon\globalPlugins\wakeSpeaker.py:234
 msgid "&Try to pause noise after (seconds)"
 msgstr "Tente uma pausa após (Segundos)"
 
 #. Translators: the length of the pause (in MS)
-#: addon\globalPlugins\wakeSpeaker.py:226
+#: addon\globalPlugins\wakeSpeaker.py:236
 msgid "&Pause length (in MS)"
 msgstr "Duração da pausa (MS)"
 
