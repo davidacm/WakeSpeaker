@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 'WakeSpeaker' '0.1'\n"
 "Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
-"POT-Creation-Date: 2023-04-27 16:52-0600\n"
-"PO-Revision-Date: 2023-04-27 16:59-0600\n"
+"POT-Creation-Date: 2024-01-03 23:27-0600\n"
+"PO-Revision-Date: 2024-01-03 23:32-0600\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es\n"
@@ -16,58 +16,100 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.4.2\n"
+
+#: addon\globalPlugins\_wakeSpeakerUtils.py:175
+msgid "&Not now"
+msgstr "&Ahora no"
+
+#: addon\globalPlugins\_wakeSpeakerUtils.py:186
+#, python-format
+msgid "Request for contributions to %s"
+msgstr "Solicitud de contribuciones para %s"
+
+#: addon\globalPlugins\_wakeSpeakerUtils.py:187
+msgid ""
+"Creating add-ons demands substantial time and effort. With limited job "
+"prospects in my country, your donations could significantly aid in "
+"dedicating more time to developing free plugins for the community.\n"
+"Your contribution would support the development of this and other free "
+"projects.\n"
+"Would you like to contribute to this cause? Select from our available "
+"payment methods below. You will be redirected to the corresponding website "
+"to complete your donation.\n"
+"Thank you for your support and generosity."
+msgstr ""
+"La creación de complementos exige mucho tiempo y esfuerzo. Debido a las "
+"bajas oportunidades laborales en mi país, sus donaciones podrían ayudar "
+"significativamente a dedicar más tiempo al desarrollo de complementos "
+"gratuitos para la comunidad.\n"
+"Tu contribución apoyaría el desarrollo de este y otros proyectos gratuitos.\n"
+"¿Te gustaría contribuir a esta causa? Seleccione entre nuestros métodos de "
+"pago disponibles a continuación. Serás redirigido al sitio web "
+"correspondiente para completar tu donación.\n"
+"Gracias por tu apoyo y generosidad."
+
+#: addon\globalPlugins\wakeSpeaker.py:30
+msgid "Using Paypal"
+msgstr "Usando Paypal"
+
+#: addon\globalPlugins\wakeSpeaker.py:34
+msgid "using Co-fi"
+msgstr "usando co-fi"
+
+#: addon\globalPlugins\wakeSpeaker.py:38
+msgid "See more methods on my github Page"
+msgstr "Ver más métodos en mi página de github"
 
 #. Translators: script category for add-on gestures
 #. Translators: The label for the NVDA's settings category.
 #. Add-on summary, usually the user visible name of the addon.
 #. Translators: Summary for this add-on to be shown on installation and add-on information.
-#: addon\globalPlugins\wakeSpeaker.py:195
-#: addon\globalPlugins\wakeSpeaker.py:246 buildVars.py:17
+#: addon\globalPlugins\wakeSpeaker.py:211
+#: addon\globalPlugins\wakeSpeaker.py:262 buildVars.py:17
 msgid "Wake Speaker"
 msgstr ""
 
 #. Translators: message to announce the add-on state (on or off) the %s is the part of the state of the add-on.
-#: addon\globalPlugins\wakeSpeaker.py:220
+#: addon\globalPlugins\wakeSpeaker.py:236
 msgid "on"
 msgstr "activado"
 
-#: addon\globalPlugins\wakeSpeaker.py:220
+#: addon\globalPlugins\wakeSpeaker.py:236
 msgid "off"
 msgstr "desactivado"
 
 #. Translators: message to announce the add-on state (on or off) the %s is the part of the state of the add-on.
-#: addon\globalPlugins\wakeSpeaker.py:220
+#: addon\globalPlugins\wakeSpeaker.py:236
 #, python-format
 msgid "Wake speaker %s"
 msgstr "Wake speaker %s"
 
 #. Translators: toggle wake speaker functionality.
-#: addon\globalPlugins\wakeSpeaker.py:222
+#: addon\globalPlugins\wakeSpeaker.py:238
 msgid "toggles the wake speaker functionality"
 msgstr "alterna la funcionalidad de Wake Speaker"
 
 #. Translators: A message asking the user if they wish to restart NVDA
 #. as the connect signals option requires restart to take effect.
-#: addon\globalPlugins\wakeSpeaker.py:229
+#: addon\globalPlugins\wakeSpeaker.py:245
 msgid ""
 "The option Listen voice and beep signals has been changed. You must restart "
 "NVDA for that change to take effect. Would you like to restart now?"
 msgstr ""
-"Se ha cambiado la opción Escuchar señales de voz y de tonos. Debes "
-"reiniciar NVDA para que ese cambio surta efecto. ¿Te gustaría reiniciar "
-"ahora?"
+"Se ha cambiado la opción Escuchar señales de voz y de tonos. Debes reiniciar "
+"NVDA para que ese cambio surta efecto. ¿Te gustaría reiniciar ahora?"
 
 #. Translators: Title for message asking if the user wishes to restart NVDA as addons have been added or removed.
-#: addon\globalPlugins\wakeSpeaker.py:234
+#: addon\globalPlugins\wakeSpeaker.py:250
 msgid "Restart NVDA"
 msgstr "Reiniciar NVDA"
 
-#: addon\globalPlugins\wakeSpeaker.py:253
+#: addon\globalPlugins\wakeSpeaker.py:269
 msgid "&Enable Wake Speaker"
 msgstr "&Habilitar Wake Speaker"
 
-#: addon\globalPlugins\wakeSpeaker.py:260
+#: addon\globalPlugins\wakeSpeaker.py:276
 msgid ""
 "&Listen voice and beep signals (disable if there are issues with other add-"
 "ons)"
@@ -76,24 +118,28 @@ msgstr ""
 "otros complementos)"
 
 #. Translators: the time to keep alive the speaker.
-#: addon\globalPlugins\wakeSpeaker.py:266
+#: addon\globalPlugins\wakeSpeaker.py:282
 msgid "&Sleep after (seconds)"
 msgstr "Suspender después de  (segundos)"
 
 #. Translators: the noise volume value.
-#: addon\globalPlugins\wakeSpeaker.py:269
+#: addon\globalPlugins\wakeSpeaker.py:285
 msgid "Noise volume"
 msgstr "Volumen del ruido"
 
 #. Translators: the time to make a small pause since the noise started the first time.
-#: addon\globalPlugins\wakeSpeaker.py:272
+#: addon\globalPlugins\wakeSpeaker.py:288
 msgid "&Try to pause noise after (seconds)"
 msgstr "Intentar una pausa después de (Segundos)"
 
 #. Translators: the length of the pause (in MS)
-#: addon\globalPlugins\wakeSpeaker.py:274
+#: addon\globalPlugins\wakeSpeaker.py:290
 msgid "&Pause length (in MS)"
 msgstr "Duración de la pausa (MS)"
+
+#: addon\globalPlugins\wakeSpeaker.py:292
+msgid "&Support wake speaker add-on"
+msgstr "&Apoyar al complemento wake speaker"
 
 #. Add-on description
 #. Translators: Long description to be shown for this add-on on add-on information from add-ons manager

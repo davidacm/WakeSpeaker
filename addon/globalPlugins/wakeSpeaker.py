@@ -1,15 +1,17 @@
-# ● wake Speaker
 # -*- coding: UTF-8 -*-
+
+# ● wake Speaker
+
 # Copyright (C) 2023 David CM
-import time, threading
+import os, time, threading
 from ctypes import c_short
 from io import BytesIO
 from random import randint
 
 import addonHandler, config, core, globalPluginHandler, gui, nvwave, speech, tones, ui, wx
 from synthDriverHandler import synthDoneSpeaking
-from gui import nvdaControls
-from ._configHelper import configSpec, registerConfig, boolValidator
+from gui import nvdaControls, settingsDialogs
+from ._wakeSpeakerUtils import configSpec, registerConfig, boolValidator, showDonationsDialog
 
 addonHandler.initTranslation()
 
@@ -23,6 +25,22 @@ class AppConfig:
 	smallPauseAfter = "integer(default=0)"
 	pauseSizeMs = "integer(default=500)"
 AF = registerConfig(AppConfig)
+
+
+DONATE_METHODS = (
+	{
+		'label': _('Using Paypal'),
+		'url': 'https://paypal.me/davicm'
+	},
+	{
+		'label': _('using Co-fi'),
+		'url': 'https://ko-fi.com/davidacm'
+	},
+	{
+		'label': _('See more methods on my github Page'),
+		'url': 'https://davidacm.github.io/donations/'
+	}
+)
 
 
 def createWhiteNoise(ms, vol, stereo=True, sampleRate=44100, bytes=2):
@@ -241,7 +259,7 @@ def promptUserForRestart():
 		core.restart()
 
 
-class WakeSpeakerSettings(gui.SettingsPanel):
+class WakeSpeakerSettings(settingsDialogs.SettingsPanel):
 	# Translators: The label for the NVDA's settings category.
 	title = _("Wake Speaker")
 
@@ -273,6 +291,8 @@ class WakeSpeakerSettings(gui.SettingsPanel):
 		# Translators: the length of the pause (in MS)
 		self.pauseSize = sHelper.addLabeledControl(_("&Pause length (in MS)"), nvdaControls.SelectOnFocusSpinCtrl, min=5, max=3000, initial=AF.pauseSizeMs)
 		self.onToggleAddon()
+		donateButton = sHelper.addItem(wx.Button(self, label=_("&Support wake speaker add-on")))
+		donateButton.Bind(wx.EVT_BUTTON, lambda e: showDonationsDialog(self, "Wake Speaker", DONATE_METHODS))
 
 	def toggleControls(self,controls, toggle):
 		for k in controls:

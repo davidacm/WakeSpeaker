@@ -13,7 +13,7 @@ The idea came after a need for some bluetooth headphones, which require that the
 If you don't have such a need, you can use the add-on with its basic functionality. If you need this additional feature, then check the settings to adapt it to your needs.
 
 ## Download.
- The latest release is available to [download in this link](https://davidacm.github.io/getlatest/gh/davidacm/WakeSpeaker/?index=1)
+ The latest release is available to [download in this link](https://davidacm.github.io/getlatest/gh/davidacm/WakeSpeaker/)
 
 ## Usage and settings.
 
